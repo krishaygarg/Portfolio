@@ -15,10 +15,10 @@ if os.getenv("TESTING") == "true":
     )
 else:
     mydb = MySQLDatabase(
-        os.getenv("MYSQL_DATABASE") or os.getenv("MYSQL_DB"),
-        user=os.getenv("MYSQL_USER"),
-        password=os.getenv("MYSQL_PASSWORD"),
-        host=os.getenv("MYSQL_HOST"),
+        os.getenv("MYSQL_DATABASE") or os.getenv("MYSQL_DB") or "myportfoliodb",
+        user=os.getenv("MYSQL_USER") or "myportfolio",
+        password=os.getenv("MYSQL_PASSWORD") or "mypassword",
+        host=os.getenv("MYSQL_HOST") or "mysql",
         port=3306
     )
 

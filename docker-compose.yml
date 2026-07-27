@@ -8,6 +8,10 @@ services:
       - .env
     environment:
       - FLASK_ENV=development
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=myportfolio
+      - MYSQL_PASSWORD=mypassword
+      - MYSQL_DATABASE=myportfoliodb
     ports:
       - "5000:5000"
     volumes:
@@ -21,6 +25,12 @@ services:
     restart: always
     env_file:
       - .env
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=myportfolio
+      - MYSQL_PASSWORD=mypassword
+      - MYSQL_DATABASE=myportfoliodb
+      - MYSQL_ROOT_PASSWORD=myrootpassword
     volumes:
       - mydatabase:/var/lib/mysql
 
