@@ -36,7 +36,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           if [ -n "$DISCORD_WEBHOOK" ]; then
-            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=🚨 Deployment Failed"
+            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=Deployment Failed"
           fi
 
   deploy:
@@ -73,7 +73,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           if [ -n "$DISCORD_WEBHOOK" ]; then
-            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=🚀 Deployment Successful"
+            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=Deployment Successful"
           fi
 
       - name: Discord Notification - Failure
@@ -82,5 +82,5 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           if [ -n "$DISCORD_WEBHOOK" ]; then
-            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=🚨 Deployment Failed"
+            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=Deployment Failed"
           fi
