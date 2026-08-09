@@ -31,12 +31,13 @@ jobs:
         run: ./run_test.sh
 
       - name: Discord Notification - Test Failure
-        if: ${{ failure() && secrets.DISCORD_WEBHOOK != '' }}
+        if: failure()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
-          curl -s -X POST "$DISCORD_WEBHOOK" \
-            -d "content=🚨 Deployment Failed"
+          if [ -n "$DISCORD_WEBHOOK" ]; then
+            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=🚨 Deployment Failed"
+          fi
 
   deploy:
     name: "Deploy to VPS"
@@ -67,17 +68,19 @@ jobs:
         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && docker compose -f docker-compose.prod.yml ps'
 
       - name: Discord Notification - Success
-        if: ${{ success() && secrets.DISCORD_WEBHOOK != '' }}
+        if: success()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
-          curl -s -X POST "$DISCORD_WEBHOOK" \
-            -d "content=🚀 Deployment Successful"
+          if [ -n "$DISCORD_WEBHOOK" ]; then
+            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=🚀 Deployment Successful"
+          fi
 
       - name: Discord Notification - Failure
-        if: ${{ failure() && secrets.DISCORD_WEBHOOK != '' }}
+        if: failure()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
-          curl -s -X POST "$DISCORD_WEBHOOK" \
-            -d "content=🚨 Deployment Failed"
+          if [ -n "$DISCORD_WEBHOOK" ]; then
+            curl -s -X POST "$DISCORD_WEBHOOK" -d "content=🚨 Deployment Failed"
+          fi
